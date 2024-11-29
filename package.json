@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch-css": "tailwindcss build -i ./client/css/main.css -o ./client/build/out.css --watch",
     "dev": "concurrently \"npm run watch-css\" \"nodemon --env-file=.env main.js\" ",
-    "build-doc": "jsdoc main.js"
+    "build-doc": "jsdoc main.js server/*"
   },
   "author": "eozden-wq",
   "license": "MIT",
@@ -20,6 +20,8 @@
     "daisyui": "^4.12.14",
     "jsdoc": "^4.0.4",
     "nodemon": "^3.1.7",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "tailwindcss": "^3.4.15"
   }
 }
