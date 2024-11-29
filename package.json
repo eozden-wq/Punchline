@@ -1,0 +1,23 @@
+{
+  "name": "whysosrs",
+  "version": "1.0.0",
+  "description": "Website where users can add and read jokes",
+  "main": "server/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch-css": "tailwindcss build -i ./client/css/main.css -o ./client/build/out.css --watch",
+    "dev": "concurrently \"npm run watch-css\" \"nodemon --env-file=.env main.js\" "
+  },
+  "author": "eozden-wq",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7",
+    "concurrently": "^9.1.0",
+    "@tailwindcss/typography": "^0.5.15",
+    "daisyui": "^4.12.14",
+    "tailwindcss": "^3.4.15"
+  }
+}
