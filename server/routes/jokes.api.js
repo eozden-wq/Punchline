@@ -55,4 +55,19 @@ router.get('/random', (req, res) => {
     res.send(jokes[index]);
 });
 
+/**
+ * @swagger
+ * /api/jokes/create:
+ *  post:
+ *      summary: Add a new joke
+ *      description: Add a new joke to the list of jokes
+ */
+router.post('/create', (req, res) => {
+    if (!(req.query.type && req.query.lead && req.query.punchline && req.query.tags && req.query.author)) {
+        res.status(400);
+        res.send('Required arguments not provided for ');
+    }
+    res.send('you are not nice');
+});
+
 module.exports = router
