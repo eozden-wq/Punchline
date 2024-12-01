@@ -5,9 +5,9 @@ The best joke generator that has ever blessed the face of this earth (laughs are
 ## Table of Contents
 
 - [Setting Up](#setup)
-- [Testing](#test)
-- [Code Review](#review)
-- [License](#lisc)
+- [Testing](#testing)
+- [Code Review](#reviewing-my-code)
+- [License](#license)
 
 # Setup
 
@@ -34,7 +34,20 @@ cd punchline
 npm i
 ```
 
-3. Run!
+3. Set up .env file
+
+```bash
+touch .env
+```
+
+and add the following .env file:
+
+```txt
+PORT = 3000
+NODE_PATH = .
+```
+
+4. Run!
 
 ```bash
 npm run start
@@ -43,7 +56,11 @@ npm run start
 
 # Testing
 
+TODO
+
 # Reviewing my Code
+
+TODO
 
 # License
 
