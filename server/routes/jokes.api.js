@@ -61,13 +61,65 @@ router.get('/random', (req, res) => {
  *  post:
  *      summary: Add a new joke
  *      description: Add a new joke to the list of jokes
+ *      responses:
+ *          200:
+ *              description: Successfully added a new joke to the list of jokes
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: string
+ *                          example: success
+ *          400:
+ *              description: Bad request, parameters have not been provided
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              type:
+ *                                  type: bool
+ *                                  example: false
+ *                              lead:
+ *                                  type: bool
+ *                                  example: true
+ *                              punchline:
+ *                                  type: bool
+ *                                  example: true
+ *                              tags:
+ *                                  type: bool
+ *                                  example: true
+ *                              author:
+ *                                  type: bool
+ *                                  example: false
+ *
  */
 router.post('/create', (req, res) => {
+    /**
+     * checks whether all parameters have been provided
+     */
     if (!(req.query.type && req.query.lead && req.query.punchline && req.query.tags && req.query.author)) {
+        let fail_response = {
+            "type": (req.query.type ? true : false),
+            "lead": (req.query.lead ? true : false),
+            "punchline": (req.query.punchline ? true : false),
+            "tags": (req.query.tags ? true : false),
+            "author": (req.query.author ? true : false),
+        };
         res.status(400);
-        res.send('Required arguments not provided for ');
+        res.send(fail_response);
+        res.end();
     }
-    res.send('you are not nice');
+    jokes.push({
+        "type": req.query.type,
+        "lead": req.query.lead,
+        "punchline": req.query.punchline,
+        "tags": req.query.tags.toString().split(','),
+        "author": req.query.author
+    });
+    fs.writeFileSync('./server/data/jokes.json', JSON.stringify(jokes));
+    res.status(200);
+    res.send("success");
+
 });
 
 module.exports = router
