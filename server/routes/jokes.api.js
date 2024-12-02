@@ -61,6 +61,37 @@ router.get('/random', (req, res) => {
  *  post:
  *      summary: Add a new joke
  *      description: Add a new joke to the list of jokes
+ *      parameters:
+ *        - in: query
+ *          name: type
+ *          scheme:
+ *              type: string
+ *          description: The type of the joke
+ *          required: true
+ *        - in: query
+ *          name: lead
+ *          scheme:
+ *              type: string
+ *          description: The lead to the joke (i.e what comes before the punchline)
+ *          required: true
+ *        - in: query
+ *          name: punchline
+ *          scheme:
+ *              type: string
+ *          description: The punchline of the joke
+ *          required: true
+ *        - in: query
+ *          name: tags
+ *          scheme:
+ *              type: string
+ *          description: The tags pertaining to the joke
+ *          required: true
+ *        - in: query
+ *          name: author
+ *          scheme:
+ *              type: string
+ *          description: The person/source that wrote the joke
+ *          required: true
  *      responses:
  *          200:
  *              description: Successfully added a new joke to the list of jokes
