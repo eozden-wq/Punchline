@@ -1,10 +1,12 @@
 [{
+    "id": 0,
     "type": "Russian Joke",
     "lead": "How does Putin keep winning elections with 90% approval rates?",
     "punchline": "Because he's a fucking dictator",
     "tags": ["depressing", "russian", "sad", "whack"],
     "author": "Huseyin Emre Ozden"
 }, {
+    "id": 1,
     "type": "Mathematical Joke",
     "lead": "What is pi^2",
     "punchline": "g",

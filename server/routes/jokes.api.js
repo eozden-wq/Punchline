@@ -4,11 +4,13 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 let jokes = []
+let id_counter;
 
 fs.readFile('./server/data/jokes.json', (err, data) => {
     if (err) throw err;
 
     jokes = JSON.parse(data);
+    id_counter = jokes.length;
 });
 
 /**
@@ -127,9 +129,11 @@ router.get('/random', (req, res) => {
 router.post('/create', (req, res) => {
     /**
      * checks whether all parameters have been provided
+     * ! This endpoint needs further testing and error-checking
      */
     if (!(req.query.type && req.query.lead && req.query.punchline && req.query.tags && req.query.author)) {
         let fail_response = {
+            "id": (id_counter ? true : false),
             "type": (req.query.type ? true : false),
             "lead": (req.query.lead ? true : false),
             "punchline": (req.query.punchline ? true : false),
@@ -141,12 +145,15 @@ router.post('/create', (req, res) => {
         res.end();
     }
     jokes.push({
+        "id": id_counter,
         "type": req.query.type,
         "lead": req.query.lead,
         "punchline": req.query.punchline,
         "tags": req.query.tags.toString().split(','),
         "author": req.query.author
     });
+    id_counter++;
+    // Naive approach, shouldn't re-write the entire object every time a joke is added, just add the joke to the file
     fs.writeFileSync('./server/data/jokes.json', JSON.stringify(jokes));
     res.status(200);
     res.send("success");
