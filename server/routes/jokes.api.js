@@ -53,8 +53,11 @@ fs.readFile('./server/data/jokes.json', (err, data) => {
  *                                          
  */
 router.get('/random', (req, res) => {
-    let index = Math.floor(Math.random() * jokes.length);
-    res.send(jokes[index]);
+    vis_jokes = jokes.filter((joke) => {
+        return joke.visible;
+    });
+    let index = Math.floor(Math.random() * vis_jokes.length);
+    res.send(vis_jokes[index]);
 });
 
 /**
@@ -139,6 +142,8 @@ router.post('/create', (req, res) => {
             "punchline": (req.query.punchline ? true : false),
             "tags": (req.query.tags ? true : false),
             "author": (req.query.author ? true : false),
+            "visible": false,
+            "reports": 0
         };
         res.status(400);
         res.send(fail_response);
@@ -150,7 +155,9 @@ router.post('/create', (req, res) => {
         "lead": req.query.lead,
         "punchline": req.query.punchline,
         "tags": req.query.tags.toString().split(','),
-        "author": req.query.author
+        "author": req.query.author,
+        "visible": true,
+        "reports": 0
     });
     id_counter++;
     // Naive approach, shouldn't re-write the entire object every time a joke is added, just add the joke to the file
@@ -158,6 +165,26 @@ router.post('/create', (req, res) => {
     res.status(200);
     res.send("success");
 
+});
+
+/**
+ * @swagger
+ * /api/jokes/report
+ */
+router.post('/report', (req, res) => {
+    if (req.query.id > jokes.length || req.query.id < 0) {
+        res.status(400)
+        res.send("Joke does not exist");
+    }
+
+    jokes[req.query.id].reports++;
+    if (jokes[req.query.id].reports >= 10) {
+        jokes[req.query.id].visible = false
+    }
+
+    fs.writeFileSync('./server/data/jokes.json', JSON.stringify(jokes));
+    res.status(200);
+    res.send("success");
 });
 
 module.exports = router

@@ -4,12 +4,16 @@
     "lead": "How does Putin keep winning elections with 90% approval rates?",
     "punchline": "Because he's a fucking dictator",
     "tags": ["depressing", "russian", "sad", "whack"],
-    "author": "Huseyin Emre Ozden"
+    "author": "Huseyin Emre Ozden",
+    "visible": true,
+    "reports": 0
 }, {
     "id": 1,
     "type": "Mathematical Joke",
     "lead": "What is pi^2",
     "punchline": "g",
     "tags": ["depressing", "physics", "whack"],
-    "author": "Huseyin Emre Ozden"
+    "author": "Huseyin Emre Ozden",
+    "visible": false,
+    "reports": 12
 }]
