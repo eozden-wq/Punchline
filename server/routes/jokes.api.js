@@ -101,7 +101,7 @@ router.get('/random', (req, res) => {
  *          200:
  *              description: Successfully added a new joke to the list of jokes
  *              content:
- *                  application/json:
+ *                  application/text:
  *                      schema:
  *                          type: string
  *                          example: success
@@ -169,12 +169,38 @@ router.post('/create', (req, res) => {
 
 /**
  * @swagger
- * /api/jokes/report
+ * /api/jokes/report:
+ *  post:
+ *      summary: report a potentially offensive joke
+ *      description: Adds a report to a joke - once a joke has received a certain number of reports, it is no longer visible and needs to be reviewed
+ *      parameters:
+ *        - in: query
+ *          name: id
+ *          scheme:
+ *              type: int
+ *          description: Unique identifier of the joke
+ *          required: true
+ *      responses:
+ *          200:
+ *              description: Joke has been reported succesfully
+ *              content:
+ *                  application/text:
+ *                      schema:
+ *                          type: string
+ *                          example: success
+ *          400:
+ *              description: The provided joke ID was not found/doesn't exist or is invalid
+ *              content:
+ *                  application/text:
+ *                      schema:
+ *                          type: string
+ *                          example: Joke does not exist
  */
 router.post('/report', (req, res) => {
     if (req.query.id > jokes.length || req.query.id < 0) {
         res.status(400)
         res.send("Joke does not exist");
+        res.end();
     }
 
     jokes[req.query.id].reports++;
@@ -185,6 +211,7 @@ router.post('/report', (req, res) => {
     fs.writeFileSync('./server/data/jokes.json', JSON.stringify(jokes));
     res.status(200);
     res.send("success");
+    res.end();
 });
 
 module.exports = router
