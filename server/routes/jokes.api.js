@@ -58,7 +58,7 @@ fs.readFile('./server/data/jokes.json', (err, data) => {
  *                                          
  */
 router.get('/random', (req, res) => {
-    vis_jokes = jokes.filter((joke) => {
+    let vis_jokes = jokes.filter((joke) => {
         return joke.visible;
     });
     let index = Math.floor(Math.random() * vis_jokes.length);
