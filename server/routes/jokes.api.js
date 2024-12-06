@@ -139,14 +139,14 @@ router.post('/create', (req, res) => {
      * checks whether all parameters have been provided
      * ! This endpoint needs further testing and error-checking
      */
-    if (!(req.query.type && req.query.lead && req.query.punchline && req.query.tags && req.query.author)) {
+    if (!(req.body.type && req.body.lead && req.body.punchline && req.body.tags && req.body.author)) {
         let fail_response = {
             "id": (id_counter ? true : false),
-            "type": (req.query.type ? true : false),
-            "lead": (req.query.lead ? true : false),
-            "punchline": (req.query.punchline ? true : false),
-            "tags": (req.query.tags ? true : false),
-            "author": (req.query.author ? true : false),
+            "type": (req.body.type ? true : false),
+            "lead": (req.body.lead ? true : false),
+            "punchline": (req.body.punchline ? true : false),
+            "tags": (req.body.tags ? true : false),
+            "author": (req.body.author ? true : false),
             "visible": false,
             "reports": 0
         };
@@ -156,11 +156,11 @@ router.post('/create', (req, res) => {
     }
     jokes.push({
         "id": id_counter,
-        "type": req.query.type,
-        "lead": req.query.lead,
-        "punchline": req.query.punchline,
-        "tags": req.query.tags.toString().split(','),
-        "author": req.query.author,
+        "type": req.body.type,
+        "lead": req.body.lead,
+        "punchline": req.body.punchline,
+        "tags": req.bod.tags.toString().split(','),
+        "author": req.body.author,
         "visible": true,
         "reports": 0
     });
