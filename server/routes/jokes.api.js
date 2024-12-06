@@ -6,6 +6,11 @@ const fs = require('fs');
 let jokes = []
 let id_counter;
 
+/**
+ * Use express json middleware to get json request body in POST request
+ */
+router.use(express.json())
+
 fs.readFile('./server/data/jokes.json', (err, data) => {
     if (err) throw err;
 
